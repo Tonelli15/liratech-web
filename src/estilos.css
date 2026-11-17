@@ -1,0 +1,260 @@
+/* LiraTech: folha de estilos única. Cores e medidas ficam em variáveis no topo. */
+:root {
+  --papel: #f7f3ea;
+  --folha: #fffdf8;
+  --tinta: #24201b;
+  --tinta-suave: #6b6257;
+  --linha: #ddd3c2;
+  --destaque: #7a2e2a;      /* bordô: ações principais e marca */
+  --destaque-escuro: #5e211e;
+  --ok: #2f6b4a;
+  --alerta-fundo: #fbf0cf;
+  --alerta-texto: #6a4b00;
+  --erro-fundo: #f8dedb;
+  --erro-texto: #8a1f17;
+  --serifa: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+  --sem-serifa: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'Cascadia Mono', Consolas, 'Courier New', monospace;
+  --altura-do-verso: 30px;  /* a caixa de texto e a margem de análise usam a mesma altura de linha */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--sem-serifa);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1, h2 { font-family: var(--serifa); font-weight: 600; line-height: 1.2; margin: 0; text-wrap: balance; }
+h1 { font-size: 1.9rem; }
+h2 { font-size: 1.15rem; }
+p { margin: 0; }
+a { color: var(--destaque); }
+small { color: var(--tinta-suave); }
+
+/* --- Campos e botões ------------------------------------------------------- */
+input, textarea, button { font: inherit; color: inherit; }
+
+input, textarea {
+  width: 100%;
+  padding: 9px 11px;
+  background: var(--folha);
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+}
+input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 2px;
+}
+
+label { display: grid; gap: 4px; font-size: 0.9rem; color: var(--tinta-suave); }
+label input, label textarea { color: var(--tinta); font-size: 1rem; }
+
+.botao {
+  padding: 9px 14px;
+  background: var(--folha);
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.botao:hover:not(:disabled) { border-color: var(--tinta-suave); }
+.botao:disabled { opacity: 0.55; cursor: default; }
+.botao-principal { background: var(--destaque); border-color: var(--destaque); color: #fff; }
+.botao-principal:hover:not(:disabled) { background: var(--destaque-escuro); border-color: var(--destaque-escuro); }
+.botao-discreto { background: transparent; border-color: transparent; color: var(--tinta-suave); padding: 6px 10px; }
+.botao-discreto:hover:not(:disabled) { border-color: var(--linha); }
+.botao-perigo { color: var(--erro-texto); }
+.botao-texto { background: none; border: none; padding: 4px 0; color: var(--destaque); text-decoration: underline; white-space: normal; text-align: left; }
+
+.linha-de-campo { display: flex; gap: 8px; flex-wrap: wrap; }
+.linha-de-campo input { flex: 1 1 180px; }
+.acoes { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* --- Blocos comuns ------------------------------------------------------------ */
+.cartao { background: var(--folha); border: 1px solid var(--linha); border-radius: 10px; padding: 18px; }
+.legenda { color: var(--tinta-suave); font-size: 0.9rem; }
+.vazio { color: var(--tinta-suave); font-style: italic; }
+.aviso { background: var(--alerta-fundo); color: var(--alerta-texto); padding: 9px 12px; border-radius: 6px; font-size: 0.92rem; }
+.aviso-erro { background: var(--erro-fundo); color: var(--erro-texto); }
+.trilha { color: var(--tinta-suave); font-size: 0.9rem; }
+
+.marca { font-family: var(--serifa); font-size: 1.35rem; font-weight: 700; color: var(--tinta); text-decoration: none; letter-spacing: 0.01em; }
+.marca span { color: var(--destaque); font-style: italic; }
+
+/* --- Moldura das telas internas ------------------------------------------------- */
+.topo {
+  display: flex; align-items: center; gap: 12px 24px; flex-wrap: wrap;
+  padding: 12px 24px;
+  background: var(--folha);
+  border-bottom: 1px solid var(--linha);
+}
+.navegacao { display: flex; gap: 18px; }
+.navegacao a { color: var(--tinta-suave); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+.navegacao a.active { color: var(--tinta); border-bottom-color: var(--destaque); }
+.topo-direita { margin-left: auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.usuario { color: var(--tinta-suave); font-size: 0.9rem; }
+.sinal { font-size: 0.82rem; padding: 3px 10px; border-radius: 999px; }
+.sinal::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: currentColor; }
+.sinal-ok { color: var(--ok); background: #e4f0e8; }
+.sinal-falha { color: var(--erro-texto); background: var(--erro-fundo); }
+
+.conteudo { padding: 28px 24px 56px; }
+.pagina { max-width: 1180px; margin: 0 auto; display: grid; gap: 18px; }
+.pagina-estreita { max-width: 640px; }
+
+/* --- Entrada (login e cadastro) --------------------------------------------------- */
+.entrada {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 48px;
+  max-width: 1040px; margin: 0 auto; padding: 32px 24px;
+}
+.marca-grande { font-size: 3rem; }
+.entrada-lema { font-family: var(--serifa); font-size: 1.35rem; margin-top: 10px; max-width: 22ch; }
+.entrada-exemplo {
+  margin: 28px 0 0; padding: 14px 16px;
+  font-family: var(--mono); font-size: 0.88rem; line-height: 1.9;
+  background: var(--folha); border: 1px solid var(--linha); border-left: 3px solid var(--destaque); border-radius: 6px;
+  overflow-x: auto;
+}
+.entrada-formulario { display: grid; gap: 14px; }
+
+/* --- Obras ----------------------------------------------------------------------------- */
+.grade-de-obras { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; align-items: start; }
+.grade-de-obras > .vazio { grid-column: 1 / -1; }
+.cartao-obra { display: grid; gap: 8px; color: inherit; text-decoration: none; }
+.cartao-obra:hover { border-color: var(--destaque); }
+.cartao-obra p { color: var(--tinta-suave); font-size: 0.92rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.cartao-nova-obra { display: grid; gap: 12px; border-style: dashed; }
+.formulario-obra { display: grid; gap: 12px; }
+
+.cabecalho-da-obra { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.cabecalho-da-obra .legenda { margin-top: 6px; max-width: 70ch; }
+.ato { display: grid; gap: 12px; }
+.cabecalho-do-ato { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.lista-de-poemas { list-style: none; margin: 0; padding: 0; }
+.lista-de-poemas li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid var(--linha); }
+.lista-de-poemas a { font-family: var(--serifa); font-size: 1.05rem; overflow-wrap: anywhere; }
+.cartao-novo-ato { border-style: dashed; }
+
+/* --- Editor ------------------------------------------------------------------------------ */
+.cabecalho-do-editor { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.titulo-do-poema {
+  flex: 1 1 260px;
+  font-family: var(--serifa); font-size: 1.7rem; font-weight: 600;
+  padding: 4px 8px; margin-left: -8px;
+  background: transparent; border-color: transparent;
+}
+.titulo-do-poema:hover { border-color: var(--linha); }
+.estado { font-size: 0.85rem; color: var(--tinta-suave); }
+.estado-salvo { color: var(--ok); }
+.estado-erro { color: var(--erro-texto); }
+
+.editor { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start; }
+
+.folha {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  background: var(--folha); border: 1px solid var(--linha); border-radius: 10px;
+  height: max(420px, calc(100vh - 250px));
+  overflow: hidden;
+}
+.versos {
+  height: 100%;
+  border: none; border-radius: 0; resize: none;
+  padding: var(--altura-do-verso) 20px 20px;
+  font-family: var(--serifa); font-size: 1.12rem; line-height: var(--altura-do-verso);
+  white-space: pre; overflow: auto;
+  background: transparent;
+}
+.versos:focus-visible { outline: none; }
+.folha:focus-within { border-color: var(--destaque); }
+
+.margem {
+  width: 92px; height: 100%;
+  overflow: hidden;
+  border-left: 1px solid var(--linha);
+  background: #faf6ee;
+  padding-bottom: 20px;
+  font-family: var(--mono); font-size: 0.9rem; line-height: var(--altura-do-verso);
+}
+.margem-titulo, .margem-linha { display: grid; grid-template-columns: 1fr 1fr; height: var(--altura-do-verso); text-align: center; }
+.margem-titulo { font-family: var(--sem-serifa); font-size: 0.7rem; color: var(--tinta-suave); text-transform: uppercase; letter-spacing: 0.04em; }
+.margem-atual { background: #f0e8d8; }
+.margem-silabas { font-variant-numeric: tabular-nums; }
+.margem-letra { font-weight: 700; color: var(--tinta-suave); }
+.margem-pendente { grid-column: 1 / -1; color: var(--tinta-suave); }
+
+/* Cores das letras do esquema de rimas (a letra identifica a rima; a cor só reforça). */
+.rima-0 { color: #7a2e2a; }
+.rima-1 { color: #1f5f8b; }
+.rima-2 { color: #2f6b4a; }
+.rima-3 { color: #8a5a00; }
+.rima-4 { color: #5b3f8c; }
+.rima-5 { color: #0f6f73; }
+
+.painel { display: grid; gap: 14px; }
+.painel .cartao { display: grid; gap: 10px; padding: 16px; }
+.escansao { font-family: var(--mono); font-size: 0.95rem; background: var(--papel); padding: 8px 10px; border-radius: 6px; overflow-wrap: anywhere; }
+.ficha-da-rima { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; font-size: 0.92rem; }
+.ficha-da-rima dt { color: var(--tinta-suave); }
+.ficha-da-rima dd { margin: 0; }
+.lista-de-rimas { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.92rem; }
+.selo { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; }
+.selo-rica { background: #e4f0e8; color: var(--ok); }
+.selo-pobre { background: #ece6da; color: var(--tinta-suave); }
+.esquemas { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.esquemas li { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.esquemas code { font-family: var(--mono); font-size: 1rem; letter-spacing: 0.12em; overflow-wrap: anywhere; text-align: right; }
+
+.rimas { display: grid; gap: 10px; }
+.rimas-resultado { display: grid; gap: 8px; }
+.fichas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.fichas li { background: var(--papel); border: 1px solid var(--linha); border-radius: 999px; padding: 3px 12px; font-family: var(--serifa); }
+.fichas small { font-family: var(--sem-serifa); font-size: 0.75rem; margin-left: 4px; }
+
+/* --- Telas estreitas (celular) ---------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .entrada { grid-template-columns: 1fr; gap: 24px; align-content: center; }
+  .marca-grande { font-size: 2.3rem; }
+  .entrada-exemplo { display: none; }
+  .editor { grid-template-columns: 1fr; }
+  .folha { height: 52vh; min-height: 300px; }
+}
+@media (max-width: 560px) {
+  .topo { padding: 10px 16px; }
+  .conteudo { padding: 20px 16px 40px; }
+  .usuario { display: none; }
+  h1 { font-size: 1.5rem; }
+  .titulo-do-poema { font-size: 1.35rem; }
+  .versos { font-size: 1rem; padding-left: 14px; padding-right: 10px; }
+  .margem { width: 72px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .botao, .cartao-obra { transition: border-color 0.15s, background-color 0.15s; }
+}
+
+/* --- Minha conta e dicionário (acréscimos) ------------------------------------------------ */
+.formulario { display: grid; gap: 12px; }
+.cartao-perigo { border-color: #e7c3bf; }
+.botao-perigo-cheio { background: var(--erro-texto); border-color: var(--erro-texto); color: #fff; }
+.botao-perigo-cheio:hover:not(:disabled) { background: #6e1811; border-color: #6e1811; }
+.aviso-ok { background: #e4f0e8; color: var(--ok); }
+
+a.usuario { text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+a.usuario:hover { color: var(--tinta); }
+a.usuario.active { color: var(--tinta); border-bottom-color: var(--destaque); }
+.usuario-curto { display: none; }
+
+.fichas li.ficha-rica { border-color: #9cc5ad; background: #eef6f1; }
+.ficha-selo { margin-left: 6px; font-family: var(--sem-serifa); font-size: 0.72rem; font-weight: 600; color: var(--ok); text-transform: uppercase; letter-spacing: 0.03em; }
+
+@media (max-width: 560px) {
+  .usuario { display: inline; }
+  .usuario-nome { display: none; }
+  .usuario-curto { display: inline; }
+}
